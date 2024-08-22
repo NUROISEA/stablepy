@@ -2318,12 +2318,12 @@ class Model_Diffusers:
 
             # number seed
             if seed == -1:
-                seeds = [random.randint(0, 2147483647) for _ in range(num_images)]
+                seeds = [random.randint(0, 2147483647)]
             else:
-                if num_images == 1:
-                    seeds = [seed]
-                else:
-                    seeds = [seed] + [random.randint(0, 2147483647) for _ in range(num_images-1)]
+                seeds = [seed]
+            
+            for _ in range(num_images - 1):
+                seeds += [seeds[-1] + 1]
 
             # generators
             generators = []  # List to store all the generators
